@@ -1,6 +1,9 @@
 import * as C from "./styles";
 import React, { useState, useEffect, FormEvent } from "react";
 import api from "../../services/api";
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+
 
 import { IList } from "../../pages/Listagem";
 
@@ -13,38 +16,49 @@ const Select: React.FC = (props: any) => {
     console.log(listar)
 }
 
-  const listSelect = (e: React.FormEvent<HTMLOptionElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const select = form.querySelector("#searchText") as HTMLInputElement;
-    setSelect(select.value);
+  const listSelect = (e: any) => {
+    e.preventDefault(); 
+    //@ts-ignore
+    setSelect(e.target.value);
     console.log(listSelect)
   };
 
 
-  useEffect(() => {
-    (async () => {
-      const query = encodeURIComponent(select);
-      if (query) {
-        await listar(query);
-      }
-    })();
-  }, [select]);
+  
 
+ const Valores = [{
+   value: "todos",
+   label: "todos",
+   
+ },
+ {
+  value: "Nome",
+  label: "Nome",
+  
+},
+{
+  value: "Cidades",
+  label: "Cidade",
+  
+}
+]
  
 
   return (
     <div className="container">
       <C.Container>
-        <form>
-        <select>
-          <option>Todos</option>
-          <option onSubmit={e => listSelect (e)}>Nome</option>
-          <option>Cidade</option>
-        </select>
-        <button>Submit</button>
-        </form>
-        
+      <TextField style={{ width: "200px", height: "50px"}}
+          select
+          value={select}
+          onChange={listSelect}
+          
+        >
+          {Valores.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </C.Container>
     </div>
   );

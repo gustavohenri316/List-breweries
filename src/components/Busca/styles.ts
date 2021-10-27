@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Busca = styled.div`
 padding: 40px 0;
 margin-left: 72.5%;
+display: flex;
 input{
     border: 1px  solid #6c757d;
     float: left;
