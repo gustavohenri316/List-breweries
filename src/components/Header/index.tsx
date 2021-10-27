@@ -1,3 +1,4 @@
+import * as C from './styles'
 import React, { useState } from 'react';
 import {
   Collapse,
@@ -17,8 +18,9 @@ const Header = () => {
 
   return (
     <div>
+      <C.Nav>
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">
+        <NavbarBrand href="/" className="logo">
           <img src="https://arphoenix.com.br/wp-content/uploads/2021/06/arp_logo.png" alt="Logo"/>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -27,11 +29,13 @@ const Header = () => {
            
             <NavItem>
             <Link to="/" className="nav-link">Listagens</Link>
-            </NavItem>            
+            </NavItem> 
+                     
           </Nav>
          
         </Collapse>
       </Navbar>
+      </C.Nav>
     </div>
   );
 }

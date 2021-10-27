@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from "react-router-dom";
-import {
-  Button,
-  ButtonDropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from "reactstrap";
+import * as C from './styles'
+import React, { useState, useEffect } from "react";
+import { useHistory, withRouter } from "react-router-dom";
+import { Button } from "reactstrap";
 import { Table } from "reactstrap";
 import api from "../../services/api";
-import { FaSistrix } from "react-icons/fa";
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Search from '../../components/Busca/busca';
 
-interface IList {
+
+export interface IList {
   id: string;
   city: string;
   name: string;
 }
 
-const Listagem: React.FC = () => {
+const Listagem: React.FC = (props: any) => {
   const [lists, setLists] = useState<IList[]>([]);
   const history = useHistory();
-
+  
   useEffect(() => {
     loadList();
   }, []);
@@ -37,27 +35,41 @@ const Listagem: React.FC = () => {
 
   const toggle = () => setOpen(!dropdownOpen);
 
+  const [search, setSearch] = useState("");
+
+  const listOpcoes = [
+    { label: 'Todos', },
+    { label: 'Cidade', },
+    { label: 'Nome', },
+  ]
+  
+  function buscar(e: any) {
+    e.preventDefault();
+    history.push("/search?query=" + search);
+  }
+  
   return (
     <div className="container">
       <br />
       <h1>Listagem de Cervejarias</h1>
       <br />
-      <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle caret>Filtrar por...</DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>Cidade</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem>Nome</DropdownItem>
-        </DropdownMenu>
-      </ButtonDropdown>
-      <form style={{display: "flex", marginLeft:"80%"}}>
-        <input type="search" id="texto" style={{ marginBottom: "0", float: "left"}} />
-        <FaSistrix style={{ width: "40px" ,height: "30px",  marginLeft:"5px", marginBottom: "0"  ,cursor:"pointer", backgroundColor: "blue", borderRadius: "10px"}}/>
-      </form>
+      <div>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={listOpcoes}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params}  />}
+        />
+      </div>
+      <div>
+        
+        
+      </div>
       <br />
-      <br />
-      <br />
-      <br />
+       
+      <Search setLists={setLists} />
+
       <Table dark>
         <thead>
           <tr>
@@ -74,8 +86,8 @@ const Listagem: React.FC = () => {
               <td>{list.city}</td>
               <td>{list.name}</td>
               <td>
-                <Button outline color="info" onClick={() => viewList(list.id)}>
-                  info
+                <Button outline color="info" onClick={() => viewList(list.id)} style={{backgroundColor: "#404040", border: "1px solid #404040", color: "#FFF"}}>
+                  Informações
                 </Button>{" "}
               </td>
             </tr>
@@ -86,4 +98,4 @@ const Listagem: React.FC = () => {
   );
 };
 
-export default Listagem;
+export default withRouter(Listagem);
