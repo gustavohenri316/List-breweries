@@ -4,9 +4,8 @@ import { useHistory, withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 import { Table } from "reactstrap";
 import api from "../../services/api";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import Search from '../../components/Busca/busca';
+import  Select  from '../../components/Select';
 
 
 export interface IList {
@@ -54,13 +53,7 @@ const Listagem: React.FC = (props: any) => {
       <h1>Listagem de Cervejarias</h1>
       <br />
       <div>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={listOpcoes}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params}  />}
-        />
+       <Select/>
       </div>
       <div>
         
