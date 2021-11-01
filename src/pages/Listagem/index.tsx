@@ -53,7 +53,7 @@ const Listagem: React.FC = (props: any) => {
       <h1>Listagem de Cervejarias</h1>
       <br />
       <div>
-       <Select/>
+       <Select />
       </div>
       <div>
         

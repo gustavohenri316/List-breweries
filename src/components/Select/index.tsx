@@ -9,12 +9,13 @@ import { IList } from "../../pages/Listagem";
 
 const Select: React.FC = (props: any) => {
   const [select, setSelect] = useState("");
+  
+  const buscar = async (value: string) => {
+    const { data } = await api.get<IList[]>(`?${value}`);
+    props.setLists(data);
+    console.log(buscar);
+  };
 
-  const listar = async (query: string)  => {
-    const { data } = await api.get<IList[]>(`/?by_name=${query}`)
-    props.setLists(data)
-    console.log(listar)
-}
 
   const listSelect = (e: any) => {
     e.preventDefault(); 
@@ -23,21 +24,30 @@ const Select: React.FC = (props: any) => {
     console.log(listSelect)
   };
 
-
+  useEffect(() => {
+    (async () => {
+      const value = encodeURIComponent(select);
+      if (value) {
+        await buscar(value);
+      }
+    })();
+  }, [select]);
+  console.log(select);
+    
   
 
  const Valores = [{
-   value: "todos",
+   value: "/",
    label: "todos",
    
  },
  {
-  value: "Nome",
+  value: "by_name",
   label: "Nome",
   
 },
 {
-  value: "Cidades",
+  value: "by_city",
   label: "Cidade",
   
 }
@@ -47,7 +57,7 @@ const Select: React.FC = (props: any) => {
   return (
     <div className="container">
       <C.Container>
-      <TextField style={{ width: "200px", height: "50px"}}
+      <TextField style={{ width: "300px", height: "35px"}}
           select
           value={select}
           onChange={listSelect}
