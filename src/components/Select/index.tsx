@@ -1,77 +1,92 @@
 import * as C from "./styles";
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useEffect, useState } from "react";
+import { TextField,  MenuItem } from "@mui/material";
 import api from "../../services/api";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-
-
 import { IList } from "../../pages/Listagem";
 
-const Select: React.FC = (props: any) => {
-  const [select, setSelect] = useState("");
-  
-  const buscar = async (value: string) => {
-    const { data } = await api.get<IList[]>(`?${value}`);
+
+
+export default function Seletor(props: {
+  setLists: React.Dispatch<React.SetStateAction<IList[]>>;
+}) {
+  const [buscaPesquisa, setBuscaPesquisa] = useState("");
+  const [valor, setValor] = React.useState("");
+
+  const buscador = async (query: string) => {
+    const { data } = await api.get<IList[]>(`${valor}=${query}`);
     props.setLists(data);
-    console.log(buscar);
+    console.log(buscador)
   };
 
-
-  const listSelect = (e: any) => {
-    e.preventDefault(); 
-    //@ts-ignore
-    setSelect(e.target.value);
-    console.log(listSelect)
+  const Buscar = (e: any) => {
+    e.preventDefault();
+    setBuscaPesquisa(e.target.value);
+    console.log(Buscar)
   };
 
   useEffect(() => {
     (async () => {
-      const value = encodeURIComponent(select);
-      if (value) {
-        await buscar(value);
+      const query = encodeURIComponent(buscaPesquisa);
+      if (query) {
+        await buscador(query);
       }
     })();
-  }, [select]);
-  console.log(select);
-    
-  
+  }, [buscaPesquisa]); 
 
- const Valores = [{
-   value: "/",
-   label: "todos",
-   
- },
- {
-  value: "by_name",
-  label: "Nome",
-  
-},
-{
-  value: "by_city",
-  label: "Cidade",
-  
-}
-]
- 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setValor(e.target.value);
+    console.log(handleChange)
+  };
+
+  const valores = [
+    {
+      value: "/search?query=",
+      label: "Todos",
+    },
+    {
+      value: "?by_name",
+      label: "Nome",
+    },
+    {
+      value: "?by_city",
+      label: "Cidade",
+    },
+  ];
 
   return (
-    <div className="container">
+    <>
       <C.Container>
-      <TextField style={{ width: "300px", height: "35px"}}
+        <TextField
+        style={{width: "200px"}}
+          id="outlined-select-currency"
           select
-          value={select}
-          onChange={listSelect}
-          
+          placeholder="Selecione"
+          value={valor}
+          onChange={handleChange}
         >
-          {Valores.map((option) => (
+          {valores.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
-      </C.Container>
-    </div>
-  );
-};
+        
+        <C.Busca>
+          <form 
+          className="searchForm" 
+          onChange={Buscar}
+          >
+            <input
+             id="searchText" 
+             type="text" 
+             placeholder="Pesquisar" />
+          </form>
+          {buscaPesquisa && <p>Resultados para {buscaPesquisa}...</p>}
 
-export default Select;
+          <br />
+        </C.Busca>
+      </C.Container>
+    </>
+  );
+}

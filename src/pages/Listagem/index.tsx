@@ -53,7 +53,7 @@ const Listagem: React.FC = (props: any) => {
       <h1>Listagem de Cervejarias</h1>
       <br />
       <div>
-       <Select />
+       <Select setLists={setLists} />
       </div>
       <div>
         
@@ -61,7 +61,7 @@ const Listagem: React.FC = (props: any) => {
       </div>
       <br />
        
-      <Search setLists={setLists} />
+     
 
       <Table dark>
         <thead>

@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import api from "../../services/api";
-import { FiSearch } from "react-icons/fi";
 import { IList } from "../../pages/Listagem";
 
 export default function Search(props: {
