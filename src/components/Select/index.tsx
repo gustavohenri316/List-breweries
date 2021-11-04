@@ -73,6 +73,7 @@ export default function Seletor(props: {
 
         <C.Container2>
           <TextField
+          
             className="serach"
             onChange={Buscar}
             id="searchText"

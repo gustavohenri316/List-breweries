@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+
 export const Conatiner = styled.div`
+
 align-items: center;
 justify-content: center;
 width: 100%;
@@ -73,4 +75,7 @@ h1 {
         cursor: pointer;
         background-color: #FFF;
     }
+    .titulo  {
+        display: flex;
 `;
+
