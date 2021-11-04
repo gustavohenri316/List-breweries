@@ -1,22 +1,11 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+display: flex;
 
 `
-export const Busca = styled.div`
 
-margin-left: 79%;
+export const Container2 = styled.div`
 
-input{  
-    border: 1px  solid #6c757d;
-    float: left;
-    border-radius: 5px; 
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    background-color: transparent;
-    margin-bottom: 10px;
-}
-
-`;
-
+margin-left: 70%;
+`

@@ -1,10 +1,9 @@
 import * as C from "./styles";
 import React, { useEffect, useState } from "react";
-import { TextField,  MenuItem } from "@mui/material";
+import { TextField, MenuItem, IconButton } from "@mui/material";
 import api from "../../services/api";
 import { IList } from "../../pages/Listagem";
-
-
+import { Search } from '@mui/icons-material';
 
 export default function Seletor(props: {
   setLists: React.Dispatch<React.SetStateAction<IList[]>>;
@@ -15,13 +14,13 @@ export default function Seletor(props: {
   const buscador = async (query: string) => {
     const { data } = await api.get<IList[]>(`${valor}=${query}`);
     props.setLists(data);
-    console.log(buscador)
+    console.log(buscador);
   };
 
   const Buscar = (e: any) => {
     e.preventDefault();
     setBuscaPesquisa(e.target.value);
-    console.log(Buscar)
+    console.log(Buscar);
   };
 
   useEffect(() => {
@@ -31,17 +30,17 @@ export default function Seletor(props: {
         await buscador(query);
       }
     })();
-  }, [buscaPesquisa]); 
+  }, [buscaPesquisa]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValor(e.target.value);
-    console.log(handleChange)
+    console.log(handleChange);
   };
 
   const valores = [
     {
-      value: "/search?query=",
+      value: "/search?query",
       label: "Todos",
     },
     {
@@ -58,7 +57,7 @@ export default function Seletor(props: {
     <>
       <C.Container>
         <TextField
-        style={{width: "200px"}}
+          style={{ width: "200px" }}
           id="outlined-select-currency"
           select
           placeholder="Selecione"
@@ -71,21 +70,23 @@ export default function Seletor(props: {
             </MenuItem>
           ))}
         </TextField>
-        
-        <C.Busca>
-          <form 
-          className="searchForm" 
-          onChange={Buscar}
-          >
-            <input
-             id="searchText" 
-             type="text" 
-             placeholder="Pesquisar" />
-          </form>
-          {buscaPesquisa && <p>Resultados para {buscaPesquisa}...</p>}
 
-          <br />
-        </C.Busca>
+        <C.Container2>
+          <TextField
+            className="serach"
+            onChange={Buscar}
+            id="searchText"
+            type="search"
+            placeholder="Pesquisar"
+          >
+            
+              <Search /> 
+            
+          </TextField>
+
+          {buscaPesquisa && <p>Resultados para {buscaPesquisa}...</p>}
+        </C.Container2>
+        <br />
       </C.Container>
     </>
   );
