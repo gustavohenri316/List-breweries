@@ -28,17 +28,12 @@ const Listagem: React.FC = (props: any) => {
   function viewList(id: string) {
     history.push(`/detalhes/${id}`);
   }
+
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
 
   const [search, setSearch] = useState("");
-
-  const listOpcoes = [
-    { label: "Todos" },
-    { label: "Cidade" },
-    { label: "Nome" },
-  ];
 
   function buscar(e: any) {
     e.preventDefault();
@@ -50,7 +45,6 @@ const Listagem: React.FC = (props: any) => {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-
 
   return (
     <div className="container">
@@ -64,7 +58,6 @@ const Listagem: React.FC = (props: any) => {
         <Select setLists={setLists} />
       </div>
       
-
       <Table dark responsive>
         <thead>
           <tr>

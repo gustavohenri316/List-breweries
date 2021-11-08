@@ -1,7 +1,13 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-
+h5 {
+    color: #c99300;
+    margin-bottom: 20px;
+}
+.TextField {
+    width: 300px;
+}
 
 `
 
@@ -10,8 +16,8 @@ padding: 20px 0 ;
 
 input{
     border: 0.5px solid #6c757d;
-    width: 300px;
-    height: 50px;
+    width: 100%;
+    height: 60px;
     border-radius: 5px;
     background-color: transparent;
 }

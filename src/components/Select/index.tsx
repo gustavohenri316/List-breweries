@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { TextField, MenuItem, IconButton } from "@mui/material";
 import api from "../../services/api";
 import { IList } from "../../pages/Listagem";
-import { Search } from '@mui/icons-material';
-
 
 const valores = [
   {
@@ -28,8 +26,6 @@ export default function Seletor(props: {
   const [buscaPesquisa, setBuscaPesquisa] = useState("");
   const [valor, setValor] = React.useState("/search?query");
   
-
-
   const buscador = async (query: string) => {
     const { data } = await api.get<IList[]>(`${valor}=${query}`);
     props.setLists(data);
@@ -57,7 +53,6 @@ export default function Seletor(props: {
     console.log(handleChange);
   };
 
- 
   return (
     <>
       <C.Container>
@@ -87,10 +82,6 @@ export default function Seletor(props: {
             placeholder="Pesquisar"
           />
             
-              
-
-          
-
           {buscaPesquisa && <p>Resultados para {buscaPesquisa}...</p>}
         </C.Container2>
         <br />
