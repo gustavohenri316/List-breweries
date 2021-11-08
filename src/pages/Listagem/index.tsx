@@ -6,7 +6,6 @@ import { Table } from "reactstrap";
 import api from "../../services/api";
 import Select from "../../components/Select";
 import Cerveja from "../../images/cerveja.png";
-
 export interface IList {
   id: string;
   city: string;
@@ -46,6 +45,13 @@ const Listagem: React.FC = (props: any) => {
     history.push("/search?query=" + search);
   }
 
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+
   return (
     <div className="container">
       <br />
@@ -57,8 +63,7 @@ const Listagem: React.FC = (props: any) => {
       <div>
         <Select setLists={setLists} />
       </div>
-      <div></div>
-      <br />
+      
 
       <Table dark responsive>
         <thead>
@@ -76,6 +81,7 @@ const Listagem: React.FC = (props: any) => {
               <td>{list.city}</td>
               <td>{list.name}</td>
               <td>
+             
                 <Button
                   outline
                   color="info"
